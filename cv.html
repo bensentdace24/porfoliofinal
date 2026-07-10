@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vincent Dave M. Awa - CV / Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f4f6f9;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent: #0d9488; /* Elegant Teal for light/print mode */
+            --accent-light: #f0fdfa;
+            --accent2: #0284c7; /* Sky Blue for highlights */
+            --border: #e2e8f0;
+            --mono: "Share Tech Mono", monospace;
+            --sans: "Sora", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--sans);
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── ACTION BAR ── */
+        .action-bar {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background: var(--bg-card);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: var(--mono);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .btn-print {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-print:hover {
+            background: #0f766e;
+        }
+
+        /* ── CV CONTAINER ── */
+        .cv-container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
+
+        /* Decorative top border */
+        .cv-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        /* ── HEADER ── */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1.5rem;
+            gap: 1.5rem;
+        }
+
+        .header-title h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            line-height: 1.1;
+        }
+
+        .header-title .subtitle {
+            font-family: var(--mono);
+            color: var(--accent);
+            font-size: 15px;
+            margin-top: 0.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .header-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 13px;
+            color: var(--text-muted);
+            align-items: flex-end;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .contact-item:hover {
+            color: var(--accent);
+        }
+
+        .contact-item svg {
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ── TWO COLUMN LAYOUT ── */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .main-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .side-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .section-heading {
+            font-family: var(--mono);
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-text {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── PROJECTS ── */
+        .project-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .project-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .project-badge {
+            font-family: var(--mono);
+            font-size: 11px;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .project-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 0.25rem;
+        }
+
+        .tech-tag {
+            font-family: var(--mono);
+            font-size: 11px;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* ── EDUCATION / WORK ── */
+        .edu-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .edu-school {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .edu-degree {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .edu-meta {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--accent2);
+            margin-top: 0.1rem;
+        }
+
+        /* ── SKILL CATEGORIES ── */
+        .skill-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .skill-group-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-badge {
+            font-size: 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #334155;
+        }
+
+        /* ── OTHER INFO CARD ── */
+        .info-card {
+            background: var(--accent-light);
+            border: 1px solid rgba(13, 148, 136, 0.15);
+            border-radius: 6px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .info-row .key {
+            font-family: var(--mono);
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .info-row .val {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* ── RESPONSIVE & PRINT STYLES ── */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .action-bar, .cv-container {
+                border-radius: 0;
+            }
+            .cv-container {
+                padding: 1.5rem;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .header-contact {
+                align-items: flex-start;
+                text-align: left;
+            }
+            .cv-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                color: #000000;
+                padding: 0;
+                font-size: 12px;
+            }
+            .action-bar {
+                display: none;
+            }
+            .cv-container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+            .cv-container::before {
+                display: none;
+            }
+            .header-title h1 {
+                font-size: 24pt;
+            }
+            .section-heading {
+                color: #000000;
+                border-bottom: 1.5px solid #000000;
+            }
+            .tech-tag, .skill-badge {
+                border: 1px solid #cbd5e1;
+                background: transparent !important;
+                color: #000000 !important;
+            }
+            .project-badge {
+                background: transparent !important;
+                border: 1px solid #000000;
+                color: #000000 !important;
+            }
+            .info-card {
+                background: transparent !important;
+                border: 1px solid #cbd5e1;
+            }
+            a {
+                text-decoration: none;
+                color: #000000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── ACTION BAR ── -->
+    <div class="action-bar">
+        <a href="index.html" class="back-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            BACK TO PORTFOLIO
+        </a>
+        <button onclick="window.print()" class="btn-print">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            PRINT / SAVE AS PDF
+        </button>
+    </div>
+
+    <!-- ── CV CONTAINER ── -->
+    <div class="cv-container">
+        <!-- HEADER -->
+        <header>
+            <div class="header-title">
+                <h1>Vincent Dave M. Awa</h1>
+                <div class="subtitle">Full Stack Developer · System Administrator</div>
+            </div>
+            <div class="header-contact">
+                <a href="mailto:davevincentawa8@gmail.com" class="contact-item">
+                    <span>davevincentawa8@gmail.com</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </a>
+                <a href="https://facebook.com/vincent.dave.awa" target="_blank" class="contact-item">
+                    <span>facebook.com/vincent.dave.awa</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="https://github.com/bensentdace24" target="_blank" class="contact-item">
+                    <span>github.com/bensentdace24</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <span class="contact-item" style="cursor: default; hover: none;">
+                    <span>Davao, Philippines</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </span>
+            </div>
+        </header>
+
+        <!-- TWO COLUMN GRID -->
+        <div class="cv-grid">
+            
+            <!-- LEFT COLUMN (MAIN) -->
+            <div class="main-column">
+                <!-- SUMMARY -->
+                <section>
+                    <h2 class="section-heading">// Profile Summary</h2>
+                    <p class="summary-text">
+                        Result-driven Information Technology student and Full Stack Developer passionate about designing, building, and deploying highly efficient, database-driven web applications and secure system infrastructures. Combines software development expertise with solid foundation in systems administration, hardware diagnostics, and network configuration. Dedicated to creating high-performance, robust tech solutions that solve real-world organizational bottlenecks.
+                    </p>
+                </section>
+
+                <!-- PROJECTS / SYSTEMS BUILT -->
+                <section>
+                    <h2 class="section-heading">// Selected Projects</h2>
+                    
+                    <div class="project-item">
+                        <div class="project-header">
+                            <span class="project-title">Document Management System (DMS)</span>
+                            <span class="project-badge">System</span>
+                        </div>
+                        <p class="project-desc">
+                            Designed and built a secure, centralized web platform to digitize, index, organize, and retrieve critical documents. Implemented robust search protocols, custom categorization logic, and granular role-based access control to ensure secure document governance.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-header">
+                            <span class="project-title">Document Tracking System</span>
+                            <span class="project-badge">Tracking</span>
+                        </div>
+                        <p class="project-desc">
+                            Created a tracking pipeline monitoring real-time flow and lifecycle of office documents. Allowed physical and digital records to be traced chronologically with status history and multi-tier approval workflows for improved audit trails.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">SQLite</span>
+                            <span class="tech-tag">Tailwind CSS</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-header">
+                            <span class="project-title">Accounting Management Website</span>
+                            <span class="project-badge">Finance</span>
+                        </div>
+                        <p class="project-desc">
+                            Co-developed an administrative system to digitize ledger accounts, automate income/expense tracking, balance sheets, and facilitate secure financial report exports for streamlined audits.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-header">
+                            <span class="project-title">CSWDO Capstone System</span>
+                            <span class="project-badge">Capstone</span>
+                        </div>
+                        <p class="project-desc">
+                            Engineered a comprehensive client profiling and social assistance management platform for local social services. Dramatically reduced record retrieval latency and automated assistance scheduling and profiling reports.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Bootstrap</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- RIGHT COLUMN (SIDE) -->
+            <div class="side-column">
+                <!-- EDUCATION -->
+                <section>
+                    <h2 class="section-heading">// Education</h2>
+                    <div class="edu-item">
+                        <div class="edu-school">Davao del Norte State College (DNSC)</div>
+                        <div class="edu-degree">Bachelor of Science in Information Technology (BSIT)</div>
+                        <div class="edu-meta">
+                            <span>Davao, PH</span>
+                            <span>Present</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TECHNICAL SKILLS -->
+                <section>
+                    <h2 class="section-heading">// Skills</h2>
+                    
+                    <div class="skill-group">
+                        <div class="skill-group-title">Languages & Web</div>
+                        <div class="skill-list">
+                            <span class="skill-badge">HTML5</span>
+                            <span class="skill-badge">CSS3</span>
+                            <span class="skill-badge">JavaScript</span>
+                            <span class="skill-badge">Bootstrap</span>
+                            <span class="skill-badge">PHP</span>
+                            <span class="skill-badge">Python</span>
+                            <span class="skill-badge">Jinja2</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-group-title">Databases & Architecture</div>
+                        <div class="skill-list">
+                            <span class="skill-badge">MySQL</span>
+                            <span class="skill-badge">SQLite</span>
+                            <span class="skill-badge">CRUD Design</span>
+                            <span class="skill-badge">Role-Based Access</span>
+                            <span class="skill-badge">Database Schemas</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-group-title">Networking & Hardware</div>
+                        <div class="skill-list">
+                            <span class="skill-badge">TCP/IP</span>
+                            <span class="skill-badge">Subnetting</span>
+                            <span class="skill-badge">VLAN Configuration</span>
+                            <span class="skill-badge">Cisco Packet Tracer</span>
+                            <span class="skill-badge">PC Troubleshooting</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-group-title">Tools & Systems</div>
+                        <div class="skill-list">
+                            <span class="skill-badge">Git & GitHub</span>
+                            <span class="skill-badge">VS Code</span>
+                            <span class="skill-badge">Postman</span>
+                            <span class="skill-badge">Figma</span>
+                            <span class="skill-badge">Linux Env</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STRENGTHS -->
+                <section>
+                    <h2 class="section-heading">// Focus Areas</h2>
+                    <div class="info-card">
+                        <div class="info-row"><span class="key">fullstack</span><span class="val">Active</span></div>
+                        <div class="info-row"><span class="key">database</span><span class="val">Advanced</span></div>
+                        <div class="info-row"><span class="key">networking</span><span class="val">Academic</span></div>
+                        <div class="info-row"><span class="key">debugging</span><span class="val">Expert</span></div>
+                        <div class="info-row"><span class="key">hardware</span><span class="val">Diagnostics</span></div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
