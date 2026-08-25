@@ -36,6 +36,20 @@
         --mono: "JetBrains Mono", monospace;
         --display: "Space Grotesk", sans-serif;
         --body: "Sora", sans-serif;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      ::selection {
+        color: var(--bg);
+        background: var(--primary);
+      }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--secondary) var(--bg2);
+      }
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
       }
 
       html {
@@ -336,47 +350,61 @@
 
       /* reveal */
       .reveal {
-        opacity: 0;
-        transform: translateY(28px);
-        transition:
-          opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-          transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 1;
+        transform: none;
       }
       .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
+        animation: section-arrive 0.7s var(--ease-out) both;
       }
       .reveal-stagger > * {
-        opacity: 0;
-        transform: translateY(18px);
-        transition:
-          opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-          transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 1;
+        transform: none;
       }
       .reveal-stagger.active > * {
-        opacity: 1;
-        transform: translateY(0);
+        animation: item-arrive 0.55s var(--ease-out) both;
       }
       .reveal-stagger.active > *:nth-child(1) {
-        transition-delay: 0.05s;
+        animation-delay: 0.05s;
       }
       .reveal-stagger.active > *:nth-child(2) {
-        transition-delay: 0.12s;
+        animation-delay: 0.12s;
       }
       .reveal-stagger.active > *:nth-child(3) {
-        transition-delay: 0.19s;
+        animation-delay: 0.19s;
       }
       .reveal-stagger.active > *:nth-child(4) {
-        transition-delay: 0.26s;
+        animation-delay: 0.26s;
       }
       .reveal-stagger.active > *:nth-child(5) {
-        transition-delay: 0.33s;
+        animation-delay: 0.33s;
       }
       .reveal-stagger.active > *:nth-child(6) {
-        transition-delay: 0.4s;
+        animation-delay: 0.4s;
       }
       .reveal-stagger.active > *:nth-child(7) {
-        transition-delay: 0.47s;
+        animation-delay: 0.47s;
+      }
+      @keyframes section-arrive {
+        from {
+          opacity: 0.35;
+          transform: translateY(22px);
+          filter: blur(5px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+      }
+      @keyframes item-arrive {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
       }
 
       /* glass */
@@ -790,6 +818,26 @@
         transform: translateY(-3px) rotate(-2deg);
         box-shadow: 0 8px 20px rgba(110, 231, 255, 0.3);
       }
+      .ai-workflow {
+        padding: 1.4rem 1.5rem;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 245, 212, 0.08),
+          rgba(124, 92, 255, 0.08)
+        );
+        border: 1px solid rgba(110, 231, 255, 0.2);
+        border-radius: 14px;
+      }
+      .ai-workflow h3 {
+        font-family: var(--display);
+        font-size: 1.05rem;
+        margin-bottom: 0.45rem;
+      }
+      .ai-workflow p {
+        color: var(--muted);
+        max-width: 70ch;
+        font-size: 13px;
+      }
 
       /* ══════ featured project ══════ */
       .featured-card {
@@ -847,13 +895,33 @@
       }
       .project-card {
         overflow: hidden;
+        position: relative;
+        isolation: isolate;
         transition:
-          border-color 0.3s,
-          transform 0.1s ease-out;
-        will-change: transform;
+          border-color 0.25s ease,
+          box-shadow 0.35s var(--ease-out),
+          transform 0.12s ease-out;
+      }
+      .project-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        background: radial-gradient(
+          360px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+          rgba(110, 231, 255, 0.12),
+          transparent 62%
+        );
+        transition: opacity 0.25s ease;
       }
       .project-card:hover {
         border-color: rgba(110, 231, 255, 0.4);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      }
+      .project-card:hover::after {
+        opacity: 1;
       }
       .project-img-wrap .img-placeholder {
         width: 100%;
@@ -878,9 +946,10 @@
       }
       .project-name {
         font-weight: 600;
-        font-size: 15px;
+        font-size: 16px;
         color: var(--text);
         margin-bottom: 6px;
+        line-height: 1.35;
       }
       .project-desc {
         font-size: 12.5px;
@@ -901,6 +970,51 @@
         background: rgba(124, 92, 255, 0.1);
         color: var(--secondary);
         border: 1px solid rgba(124, 92, 255, 0.25);
+        transition:
+          color 0.18s ease,
+          border-color 0.18s ease,
+          background 0.18s ease;
+      }
+      .project-card:hover .stack-tag,
+      .featured-card:hover .stack-tag {
+        color: var(--primary);
+        border-color: rgba(110, 231, 255, 0.3);
+        background: rgba(110, 231, 255, 0.08);
+      }
+      .project-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .project-status::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+        .reveal,
+        .reveal-stagger > * {
+          opacity: 1;
+          transform: none;
+        }
+      }
       }
 
       /* ══════ contact ══════ */
@@ -1058,6 +1172,32 @@
       }
 
       @media (max-width: 640px) {
+        nav {
+          width: 100%;
+          max-width: 100vw;
+          padding: 0 1rem;
+        }
+        .nav-logo {
+          font-size: 12px;
+          flex-shrink: 0;
+        }
+        .nav-links {
+          gap: 0.65rem;
+        }
+        .nav-links li:nth-child(1),
+        .nav-links li:nth-child(2) {
+          display: none;
+        }
+        .nav-links a {
+          font-size: 11px;
+        }
+        .nav-links .nav-cv {
+          padding: 6px 10px;
+        }
+        section {
+          width: 100%;
+          padding: 4.5rem 1rem;
+        }
         .hero-inner {
           grid-template-columns: 1fr;
         }
@@ -1072,12 +1212,16 @@
         .fc-img {
           height: 220px !important;
         }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          animation: none !important;
-          transition: none !important;
+        .projects-list {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .fc-body,
+        .project-body {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+        .fc-links {
+          flex-wrap: wrap;
         }
       }
     </style>
@@ -1337,8 +1481,12 @@
           <div class="skill-tags">
             <span class="skill-tag">HTML5</span
             ><span class="skill-tag">CSS3</span>
-            <span class="skill-tag">JavaScript</span
-            ><span class="skill-tag">Bootstrap</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Vite</span>
+            <span class="skill-tag">Bootstrap</span>
+            <span class="skill-tag">Tailwind CSS</span>
           </div>
         </div>
         <div>
@@ -1347,6 +1495,10 @@
             <span class="skill-tag">PHP</span
             ><span class="skill-tag">Laravel</span
             ><span class="skill-tag">MySQL</span>
+            <span class="skill-tag">SQLite</span>
+            <span class="skill-tag">Laravel Blade</span>
+            <span class="skill-tag">Laravel Sanctum</span>
+            <span class="skill-tag">REST APIs</span>
             <span class="skill-tag">CRUD Systems</span
             ><span class="skill-tag">Role-Based Access</span>
           </div>
@@ -1377,7 +1529,20 @@
             ><span class="skill-tag">GitHub</span>
             <span class="skill-tag">Figma (Basic UI)</span
             ><span class="skill-tag">Postman</span>
+            <span class="skill-tag">Axios</span>
+            <span class="skill-tag">Chart.js</span>
+            <span class="skill-tag">PHPUnit</span>
+            <span class="skill-tag">Vitest</span>
           </div>
+        </div>
+        <div class="ai-workflow">
+          <h3>AI-Assisted Development</h3>
+          <p>
+            I use AI as a practical development partner for planning,
+            debugging, learning unfamiliar concepts, improving code, and
+            supporting testing. I still review the output, make the technical
+            decisions, test the result, and refine each project myself.
+          </p>
         </div>
       </div>
     </section>
@@ -1517,35 +1682,141 @@
             <div class="project-img-wrap">
               <div
                 class="img-placeholder"
-                title="Click to upload a screenshot of this project"
+                title="Click to upload the Accounting and Budget project screenshot"
               >
                 <input
                   type="file"
                   accept="image/*"
                   onchange="previewImage(this)"
+                  aria-label="Upload Accounting and Budget project screenshot"
                 />
-                <div class="ph-icon">🖥️</div>
+                <div class="ph-icon">
+                  <i class="fa-regular fa-image" aria-hidden="true"></i>
+                </div>
                 <div class="ph-label">screenshot</div>
-                <div class="ph-hint">Accounting Management Website</div>
+                <div class="ph-hint">Add Accounting &amp; Budget screenshot</div>
                 <img
                   class="preview"
-                  src="images/system3.png"
-                  alt="Accounting System Screenshot"
-                  style="display: block"
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                  alt="Accounting and Budget project preview"
                 />
               </div>
             </div>
             <div class="project-body">
               <div class="project-num">03</div>
-              <div class="project-name">Accounting Management Website</div>
+              <div class="project-status">Full-stack web application</div>
+              <div class="project-name">
+                Accounting &amp; Budget Management System
+              </div>
               <div class="project-desc">
-                Handles financial records, transaction logging, and basic
-                reporting for income and expense tracking.
+                A unified finance workspace for recording income and expenses,
+                organizing budgets, monitoring balances, and turning financial
+                data into readable Chart.js reports. Built with a traditional
+                Laravel MVC structure and database-backed sessions, cache, and
+                queues.
               </div>
               <div class="project-stack">
-                <span class="stack-tag">PHP</span
-                ><span class="stack-tag">Laravel</span
-                ><span class="stack-tag">MySQL</span>
+                <span class="stack-tag">PHP 8.2+</span>
+                <span class="stack-tag">Laravel 12</span>
+                <span class="stack-tag">MySQL</span>
+                <span class="stack-tag">Laravel Blade</span>
+                <span class="stack-tag">Bootstrap 5</span>
+                <span class="stack-tag">Tailwind CSS 4</span>
+                <span class="stack-tag">Chart.js</span>
+                <span class="stack-tag">Vite 7</span>
+                <span class="stack-tag">Axios</span>
+                <span class="stack-tag">PHPUnit 11</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card glass">
+            <div class="project-img-wrap">
+              <div
+                class="img-placeholder"
+                title="Click to upload the Resort Website screenshot"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onchange="previewImage(this)"
+                  aria-label="Upload Resort Website screenshot"
+                />
+                <div class="ph-icon">
+                  <i class="fa-regular fa-image" aria-hidden="true"></i>
+                </div>
+                <div class="ph-label">screenshot</div>
+                <div class="ph-hint">Add Resort Website screenshot</div>
+                <img
+                  class="preview"
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                  alt="Resort Website project preview"
+                />
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-num">04</div>
+              <div class="project-status">Frontend experience</div>
+              <div class="project-name">Resort Website</div>
+              <div class="project-desc">
+                A responsive resort experience that presents accommodations,
+                amenities, destination highlights, and booking-focused content
+                through a polished React interface. The frontend is ready for
+                a future reservation backend and live availability data.
+              </div>
+              <div class="project-stack">
+                <span class="stack-tag">React</span>
+                <span class="stack-tag">TypeScript</span>
+                <span class="stack-tag">Vite</span>
+                <span class="stack-tag">Responsive UI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card glass">
+            <div class="project-img-wrap">
+              <div
+                class="img-placeholder"
+                title="Click to upload the Job Tracking Platform screenshot"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onchange="previewImage(this)"
+                  aria-label="Upload Job Tracking Platform screenshot"
+                />
+                <div class="ph-icon">
+                  <i class="fa-regular fa-image" aria-hidden="true"></i>
+                </div>
+                <div class="ph-label">screenshot</div>
+                <div class="ph-hint">Add Job Tracking Platform screenshot</div>
+                <img
+                  class="preview"
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                  alt="Job Tracking Platform preview"
+                />
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-num">05</div>
+              <div class="project-status">Tested full-stack platform</div>
+              <div class="project-name">Job Tracking Platform</div>
+              <div class="project-desc">
+                A full-stack workspace for organizing job opportunities and
+                following applications through each stage. A React client
+                communicates with protected Laravel REST APIs using Sanctum,
+                with automated backend and frontend coverage for dependable
+                workflows.
+              </div>
+              <div class="project-stack">
+                <span class="stack-tag">React</span>
+                <span class="stack-tag">Vite</span>
+                <span class="stack-tag">Laravel</span>
+                <span class="stack-tag">Laravel Sanctum</span>
+                <span class="stack-tag">REST APIs</span>
+                <span class="stack-tag">SQLite</span>
+                <span class="stack-tag">PHPUnit</span>
+                <span class="stack-tag">Vitest</span>
               </div>
             </div>
           </div>
@@ -1798,6 +2069,9 @@
       const ring = document.getElementById("cursor-ring");
       const dot = document.getElementById("cursor-dot");
       const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
       if (isFinePointer) {
         window.addEventListener("mousemove", (e) => {
           ring.style.left = e.clientX + "px";
@@ -1823,6 +2097,9 @@
         .forEach((card) => {
           card.addEventListener("mousemove", (e) => {
             const r = card.getBoundingClientRect();
+            card.style.setProperty("--spot-x", e.clientX - r.left + "px");
+            card.style.setProperty("--spot-y", e.clientY - r.top + "px");
+            if (prefersReducedMotion) return;
             const x = (e.clientX - r.left) / r.width - 0.5;
             const y = (e.clientY - r.top) / r.height - 0.5;
             card.style.transform =
@@ -1833,7 +2110,7 @@
               "deg) translateY(-4px)";
           });
           card.addEventListener("mouseleave", () => {
-            card.style.transform = "none";
+            if (!prefersReducedMotion) card.style.transform = "none";
           });
         });
 
